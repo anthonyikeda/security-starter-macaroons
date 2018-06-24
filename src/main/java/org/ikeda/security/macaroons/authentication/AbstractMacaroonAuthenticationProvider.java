@@ -9,9 +9,10 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.SpringSecurityMessageSource;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.Assert;
 
-public class AbstractMacaroonAuthenticationProvider
+public abstract class AbstractMacaroonAuthenticationProvider
         implements AuthenticationProvider, MessageSourceAware {
 
     protected final Log logger = LogFactory.getLog(getClass());
@@ -35,4 +36,7 @@ public class AbstractMacaroonAuthenticationProvider
     public boolean supports(Class<?> authentication) {
         return MacaroonAuthenticationToken.class.isAssignableFrom(authentication);
     }
+    protected abstract UserDetails retrieveUser(String username,
+                                                MacaroonAuthenticationToken authentication)
+            throws AuthenticationException;
 }
