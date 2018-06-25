@@ -19,14 +19,12 @@ buildscript {
     }
 }
 
-apply plugin: 'io.spring.convention.root'
-apply plugin: 'io.spring.convention.spring-module'
-
-allprojects {
-    if( rootProject == project ) {
-        apply plugin: 'io.spring.convention.root'
-    }
+plugins {
+    id 'java'
+    id 'eclipse'
 }
+
+apply plugin: 'io.spring.convention.spring-module'
 
 repositories {
     mavenCentral()
@@ -38,7 +36,6 @@ dependencies {
     compile('org.springframework:spring-beans:5.0.7.RELEASE')
     compile('org.springframework:spring-context:5.0.7.RELEASE')
     compile('org.springframework:spring-core:5.0.7.RELEASE')
-    compile('com.github.nitram509:jmacaroons:0.3.1')
 
     testCompile('junit:junit:4.8.2')
     testCompile('org.mockito:mockito-core:1.10.19')
@@ -46,5 +43,4 @@ dependencies {
     testCompile('org.assertj:assertj-core:3.10.0')
 
     provided 'javax.servlet:javax.servlet-api:4.0.1'
-
 }

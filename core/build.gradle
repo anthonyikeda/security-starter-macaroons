@@ -19,14 +19,7 @@ buildscript {
     }
 }
 
-apply plugin: 'io.spring.convention.root'
 apply plugin: 'io.spring.convention.spring-module'
-
-allprojects {
-    if( rootProject == project ) {
-        apply plugin: 'io.spring.convention.root'
-    }
-}
 
 repositories {
     mavenCentral()
