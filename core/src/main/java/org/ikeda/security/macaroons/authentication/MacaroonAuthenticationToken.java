@@ -24,11 +24,18 @@ public class MacaroonAuthenticationToken extends AbstractAuthenticationToken {
     private Object credentials;
     private Macaroon macaroon;
 
-    public MacaroonAuthenticationToken(Macaroon _macaroon, String _secret, Collection<GrantedAuthority> _authorities) {
+    public MacaroonAuthenticationToken(Macaroon _macaroon, Collection<MacaroonGrantedAuthority> _authorities) {
         super(_authorities);
         this.macaroon = _macaroon;
         this.principal = macaroon.identifier;
-        this.credentials = _secret;
+        this.setAuthenticated(false);
+    }
+
+    public MacaroonAuthenticationToken(Macaroon _macaroon, Collection<MacaroonGrantedAuthority> _authorities, boolean _authenticated) {
+        super(_authorities);
+        this.macaroon = _macaroon;
+        this.principal = macaroon.identifier;
+        this.setAuthenticated(_authenticated);
     }
     @Override
     public Object getCredentials() {

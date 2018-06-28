@@ -1,10 +1,11 @@
 package org.ikeda.security.macaroons.web.servlet;
 
+import com.github.nitram509.jmacaroons.Macaroon;
+import com.github.nitram509.jmacaroons.MacaroonsBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
@@ -19,6 +20,8 @@ import java.io.IOException;
 import static java.util.Optional.ofNullable;
 import static org.apache.commons.lang3.StringUtils.removeStart;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
+
+import org.ikeda.security.macaroons.authentication.MacaroonAuthenticationToken;
 
 public class MacaroonAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 
@@ -58,8 +61,8 @@ public class MacaroonAuthenticationFilter extends AbstractAuthenticationProcessi
                 .orElseThrow(() -> new BadCredentialsException("Missing Authentication Token"));
 
         logger.debug(String.format("Token is %s", token));
-
-        final Authentication auth = new UsernamePasswordAuthenticationToken(token, token);
+        Macaroon macaroon = MacaroonsBuilder.deserialize(token);
+        MacaroonAuthenticationToken auth = new MacaroonAuthenticationToken(macaroon, null);
         return getAuthenticationManager().authenticate(auth);
     }
 

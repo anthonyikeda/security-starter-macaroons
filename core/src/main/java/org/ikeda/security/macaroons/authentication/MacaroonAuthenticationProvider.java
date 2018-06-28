@@ -24,7 +24,7 @@ public class MacaroonAuthenticationProvider extends AbstractMacaroonAuthenticati
 
         verifier.assertIsValid((String) authentication.getCredentials());
 
-        MacaroonUser user = new MacaroonUser();
+        MacaroonUser user = new MacaroonUser(null);
         user.setUsername(macaroon.identifier);
         user.setEmailAddress(macaroon.location);
         user.setPassword(macaroon.signature);

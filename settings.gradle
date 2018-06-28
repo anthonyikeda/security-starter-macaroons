@@ -8,9 +8,7 @@
  */
 
 rootProject.name = 'spring-security-macaroon'
-include ':spring-security-macaroon-core'
-include ':spring-security-macaroon-web'
-include 'spring-security-macaroon-config'
+include ':spring-security-macaroon-core', ':spring-security-macaroon-web', 'spring-security-macaroon-config'
 project(':spring-security-macaroon-core').projectDir = new File(settingsDir, './core')
 project(':spring-security-macaroon-web').projectDir = new File(settingsDir, './web')
 project(':spring-security-macaroon-config').projectDir = new File(settingsDir, './config')

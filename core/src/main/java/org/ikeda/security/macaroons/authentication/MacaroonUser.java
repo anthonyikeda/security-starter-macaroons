@@ -12,6 +12,11 @@ public class MacaroonUser implements UserDetails {
     private String emailAddress;
     private String password;
     private boolean enabled;
+    private final Collection<MacaroonGrantedAuthority> authorities;
+
+    public MacaroonUser(Collection<MacaroonGrantedAuthority> _authorities) {
+        this.authorities = _authorities;
+    }
 
     @Override
     public String getUsername() {

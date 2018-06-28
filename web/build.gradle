@@ -27,7 +27,7 @@ repositories {
 
 dependencies {
 
-    project(':spring-security-macaroon-core')
+    compile project(':spring-security-macaroon-core')
 
     compile('org.springframework.security:spring-security-core:5.0.6.RELEASE')
     compile('org.springframework.security:spring-security-web:5.0.6.RELEASE')
