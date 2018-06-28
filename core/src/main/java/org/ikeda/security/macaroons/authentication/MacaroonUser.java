@@ -59,7 +59,7 @@ public class MacaroonUser implements UserDetails {
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
+    public Collection<MacaroonGrantedAuthority> getAuthorities() {
         return null;
     }
 

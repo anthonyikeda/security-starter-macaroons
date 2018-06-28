@@ -29,7 +29,10 @@ public abstract class AbstractMacaroonAuthenticationProvider
         Assert.isInstanceOf(MacaroonAuthenticationToken.class, authentication,
                 () -> this.messages.getMessage("MacaroonAuthenticationProvider.onlySupports",
                         "Only MacaroonAuthenticationToken is supported"));
-        return null;
+
+        UserDetails details = retrieveUser((String) authentication.getPrincipal(), (MacaroonAuthenticationToken) authentication);
+
+        return authentication;
     }
 
     @Override
