@@ -7,6 +7,7 @@
 buildscript {
     ext{
         springBootVersion = "2.0.1.RELEASE"
+        gradleReleaseVersion = "2.6.0"
     }
     repositories {
         mavenCentral()
@@ -15,16 +16,37 @@ buildscript {
 
     dependencies {
         classpath 'io.spring.gradle:spring-build-conventions:0.0.16.RELEASE'
-        classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
+        classpath "net.researchgate:gradle-release:${gradleReleaseVersion}"
     }
 }
 
 apply plugin: 'io.spring.convention.root'
 apply plugin: 'io.spring.convention.spring-module'
+apply plugin: 'net.researchgate.release'
 
 allprojects {
     if( rootProject == project ) {
         apply plugin: 'io.spring.convention.root'
+    }
+
+    apply plugin: 'io.spring.convention.spring-module'
+
+    dependencies {
+        compile('org.springframework.security:spring-security-core:5.0.6.RELEASE')
+        compile('org.springframework:spring-aop:5.0.7.RELEASE')
+        compile('org.springframework:spring-beans:5.0.7.RELEASE')
+        compile('org.springframework:spring-context:5.0.7.RELEASE')
+        compile('org.springframework:spring-core:5.0.7.RELEASE')
+        compile('com.github.nitram509:jmacaroons:0.3.1')
+
+        testCompile('junit:junit:4.8.2')
+        testCompile('org.mockito:mockito-core:1.10.19')
+        testCompile('org.springframework:spring-test:5.0.7.RELEASE')
+        testCompile('org.assertj:assertj-core:3.10.0')
+    }
+
+    release {
+        tagTemplate = '$name-$version'
     }
 }
 
@@ -47,4 +69,12 @@ dependencies {
 
     provided 'javax.servlet:javax.servlet-api:4.0.1'
 
+}
+
+release {
+    versionPropertyFile = 'gradle.properties'
+    git {
+        requireBranch = 'master'
+        pushToRemote = 'origin'
+    }
 }
